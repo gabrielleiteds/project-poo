@@ -21,8 +21,6 @@ public class Client extends User{
         password = scanner.nextLine();
         user.setPassword(password);
 
-        scanner.close();
-
         database.add(user);
 
         return user;
