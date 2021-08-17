@@ -19,7 +19,7 @@ public class App {
 
       System.out.println("1- Cadastrar 2- Logar 3- Sair");
       response = scan.nextInt();
-
+      scan.nextLine();
       if(response == 1) {
         int res;
 
@@ -29,7 +29,7 @@ public class App {
         System.out.println("Bem vindo " + client.name + "!");
 
         do {
-          System.out.println("1- Ver Estoque 2- Adicionar produto 3-Remover produto 4- Sair");
+          System.out.println("1- Ver Estoque 2- Adicionar produto 3-Remover produto 4- logout");
           res = scan.nextInt();
     
           if(res == 1) {
@@ -41,13 +41,11 @@ public class App {
         } while(res != 4);
       }
 
-      if(response == 2) {
-        String email, password;
-        
+      if(response == 2) {        
         System.out.println("Digite seu email: ");
-        email = scan.nextLine();
-        System.out.println("Digite sua senha: ");
-        password = scan.nextLine();
+        String email = scan.nextLine();
+        System.out.println("\nDigite sua senha: ");
+        String password = scan.nextLine();
 
         authenticate(email, password);
       }
@@ -58,24 +56,28 @@ public class App {
   }
 
   public static void getUsers() {
-    Admin adm = Admin.init();
-    users.add((User) adm);
+    User adm = Admin.init();
+    users.add(adm);
     
     ArrayList<Client> clients = Client.database;
     for(Client client : clients) {
-      users.add((User) client);
+      User user = client;
+      users.add(user);
     }
   }
 
   public static void authenticate(String email, String password) {
     for(User user : users) {
-      if(user.email == email && user.getPassword() == password) {
+      String pass = user.getPassword();
+      if(user.email.equals(email) && pass.equals(password)) {
         if(user instanceof Client) {
           menu((Client) user);
         }
         if(user instanceof Admin) {
           menu((Admin) user);
         }
+      } else {
+        System.out.println("erro");
       }
     }
   }
@@ -86,7 +88,7 @@ public class App {
     int res;
 
     do {
-      System.out.println("1- Ver Estoque 2- Adicionar produto 3-Remover produto 4- Sair");
+      System.out.println("1- Ver Estoque 2- Adicionar produto 3-Remover produto 4- Logout");
       res = scan.nextInt();
 
       if(res == 1) {
