@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+import inventories.Stock;
 import users.Client;
 
 public class App {
@@ -19,7 +20,11 @@ public class App {
       System.out.println("Bem vindo " + client.name + "!");
 
       System.out.println("1- Ver Estoque 2- Adicionar produto 3-Remover produto");
-      response = scan.nextInt();
+      int sasa = scan.nextInt();
+
+      if(sasa == 1) {
+        Stock.getProducts(client);
+      }
     }
     
     scan.close();

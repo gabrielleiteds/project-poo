@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 import java.util.Scanner;
 
-public class Client extends User{
+import inventories.Stock;
+
+public class Client extends User {
     public static ArrayList<Client> database = new ArrayList<>();
+    public Stock stock;
 
     public Client register() {
         Scanner scanner = new Scanner(System.in);
@@ -19,8 +22,10 @@ public class Client extends User{
         System.out.println("Digite sua senha: ");
         String password;
         password = scanner.nextLine();
+        
         user.setPassword(password);
-
+        user.stock = new Stock(user); 
+        
         database.add(user);
 
         return user;
