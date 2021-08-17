@@ -6,29 +6,36 @@ import users.Client;
 public class App {
   public static void main(String[] args) {
     Scanner scan = new Scanner(System.in);
+
     System.out.println("Bem vindo ao gerenciador de estoque!");
-    
-    System.out.println("1- Cadastrar 2- Logar");
     int response;
-    response = scan.nextInt();
+    
+    do {
+      System.out.println("1- Cadastrar 2- Logar 3- Sair");
+      response = scan.nextInt();
 
-    if(response == 1) {
-      Client client = new Client();
+      if(response == 1) {
+        int res;
 
-      client = client.register();
+        Client client = new Client();
+        client = client.register();
+  
+        System.out.println("Bem vindo " + client.name + "!");
 
-      System.out.println("Bem vindo " + client.name + "!");
-
-      System.out.println("1- Ver Estoque 2- Adicionar produto 3-Remover produto");
-      int res = scan.nextInt();
-
-      if(res == 1) {
-        Stock.getProducts(client);
+        do {
+          System.out.println("1- Ver Estoque 2- Adicionar produto 3-Remover produto 4- Sair");
+          res = scan.nextInt();
+    
+          if(res == 1) {
+            Stock.getProducts(client);
+          }
+          if(res == 2) {
+            Stock.addProducts(client);
+          }
+        } while(res != 4);
       }
-      if(res == 2) {
-        Stock.addProducts(client);
-      }
-    }
+
+    } while(response != 3);
     
     scan.close();
   }
