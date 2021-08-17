@@ -1,6 +1,8 @@
 package inventories;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Scanner;
 import java.util.UUID;
 
 import foods.Food;
@@ -21,6 +23,31 @@ public class Stock {
   }
   public Stock () {}
   
+  public static void addProducts(Client owner) {
+    Scanner input = new Scanner(System.in);
+    Food foodCreate = new Food();
+
+    System.out.println("Digite o nome do produto: ");
+    foodCreate.name = input.nextLine();
+    System.out.println("Digite uma descrição para o produto: ");
+    foodCreate.description = input.nextLine();
+    System.out.println("Defina o preço do produto: ");
+    foodCreate.price = input.nextLine();
+
+    foodCreate.validaty = new Date();
+
+    UUID userId = owner.stock.id;
+    Stock stockfind = new Stock();
+    
+    for(Stock stock : database) {
+      if(stock.id == userId) stockfind = stock;
+    }
+
+    stockfind.food.add(foodCreate);
+
+    System.out.println("Produto adicionado!");
+  }
+
   public static void getProducts(Client owner) {
     UUID userId = owner.stock.id;
     Stock stockfind = new Stock();
@@ -29,9 +56,10 @@ public class Stock {
       if(stock.id == userId) stockfind = stock;
     }
 
-    for (int i = 0; i < 2; i++) {
-      // Food food = stockfind.food.get(i);
-      System.out.println("sashahsahsah");
+    for (int i = 0; i < stockfind.food.size(); i++) {
+      Food foodFind = stockfind.food.get(i);
+      System.out.println("Nome: " + foodFind.name + "           preço: " +  foodFind.price);
+      System.out.println("Descrição: " + foodFind.description);
     }
   }
 }

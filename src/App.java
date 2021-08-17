@@ -20,10 +20,13 @@ public class App {
       System.out.println("Bem vindo " + client.name + "!");
 
       System.out.println("1- Ver Estoque 2- Adicionar produto 3-Remover produto");
-      int sasa = scan.nextInt();
+      int res = scan.nextInt();
 
-      if(sasa == 1) {
+      if(res == 1) {
         Stock.getProducts(client);
+      }
+      if(res == 2) {
+        Stock.addProducts(client);
       }
     }
     
