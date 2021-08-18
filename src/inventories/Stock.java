@@ -33,6 +33,8 @@ public class Stock {
     foodCreate.description = input.nextLine();
     System.out.println("Defina o preço do produto: ");
     foodCreate.price = input.nextLine();
+    System.out.println("Defina a quantidade desse produto: ");
+    foodCreate.quantity = input.nextInt();
 
     foodCreate.validaty = new Date();
 
@@ -58,8 +60,39 @@ public class Stock {
 
     for (int i = 0; i < stockfind.food.size(); i++) {
       Food foodFind = stockfind.food.get(i);
-      System.out.println("Nome: " + foodFind.name + "           preço: " +  foodFind.price);
-      System.out.println("Descrição: " + foodFind.description);
+      System.out.println("----------------------------------------------------");
+      System.out.println("-- " + foodFind.name);
+      System.out.println("Descrição: \n" + foodFind.description);
+      System.out.println("Quantidade: " + foodFind.quantity);
+      System.out.println("Data de validade: " + foodFind.validaty);
+      System.out.println("------------------------------------- " + foodFind.price);
     }
+  }
+
+  public static void removeProduct(Client owner) {
+      Scanner scanner = new Scanner(System.in);
+
+      UUID userId = owner.stock.id;
+      Stock stockfind = new Stock();
+      
+      for(Stock stock : database) {
+        if(stock.id == userId) stockfind = stock;
+      }
+      
+      System.out.println("Qual produto deseja remover? ");
+      String productName = scanner.nextLine();
+      System.out.println("Qual a quantidade que deseja remover? ");
+      int productQtd = scanner.nextInt();
+
+      for(Food food : stockfind.food) {
+        if(food.name.toLowerCase().equals(productName.toLowerCase())) {
+          food.quantity -= productQtd;
+          if(food.quantity <= 0) {
+            stockfind.food.remove(food);
+          }
+          break;
+        }
+      }
+
   }
 }
