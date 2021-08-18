@@ -6,4 +6,5 @@ public class Food {
   public Date validaty;
   public String description;
   public String price;
+  public int quantity;
 }
