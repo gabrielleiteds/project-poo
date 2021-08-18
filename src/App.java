@@ -29,7 +29,7 @@ public class App {
         System.out.println("Bem vindo " + client.name + "!");
 
         do {
-          System.out.println("1- Ver Estoque 2- Adicionar produto 3-Remover produto 4- logout");
+          System.out.println("1- Ver Estoque 2- Adicionar produto 3-Remover produto 4- Logout");
           res = scan.nextInt();
     
           if(res == 1) {
@@ -44,7 +44,7 @@ public class App {
       if(response == 2) {        
         System.out.println("Digite seu email: ");
         String email = scan.nextLine();
-        System.out.println("\nDigite sua senha: ");
+        System.out.println("Digite sua senha: ");
         String password = scan.nextLine();
 
         authenticate(email, password);
@@ -56,12 +56,12 @@ public class App {
   }
 
   public static void getUsers() {
-    User adm = Admin.init();
+    User adm = (User) Admin.init();
     users.add(adm);
     
     ArrayList<Client> clients = Client.database;
     for(Client client : clients) {
-      User user = client;
+      User user = (User) client;
       users.add(user);
     }
   }
@@ -71,13 +71,13 @@ public class App {
       String pass = user.getPassword();
       if(user.email.equals(email) && pass.equals(password)) {
         if(user instanceof Client) {
-          menu((Client) user);
+          Client logged = (Client) user;
+          menu(logged);
         }
         if(user instanceof Admin) {
-          menu((Admin) user);
+          Admin logged = (Admin) user;
+          menu(logged);
         }
-      } else {
-        System.out.println("erro");
       }
     }
   }
@@ -86,6 +86,8 @@ public class App {
     Scanner scan = new Scanner(System.in);
 
     int res;
+
+    System.out.println("Bem vindo " + user.name + "!");
 
     do {
       System.out.println("1- Ver Estoque 2- Adicionar produto 3-Remover produto 4- Logout");
@@ -101,6 +103,19 @@ public class App {
   }
 
   public static void menu(Admin user) {
+    Scanner scan = new Scanner(System.in);
 
+    int res;
+
+    System.out.println("Bem vindo " + user.name + "!");
+
+    do {
+      System.out.println("1- Listar usuários 2- Cadastrar Inspetor 3- Listar estoques 4- Logout");
+      res = scan.nextInt();
+
+      if(res == 1) {
+        user.getUsers(user);
+      }
+    } while(res != 4);
   }
 }
