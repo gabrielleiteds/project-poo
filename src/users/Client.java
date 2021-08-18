@@ -14,7 +14,7 @@ public class Client extends User {
         Scanner scanner = new Scanner(System.in);
 
         Client user = new Client();
-
+        System.out.println("------------ Cadastro ------------");
         System.out.println("Digite seu nome: ");
         user.name = scanner.nextLine();
         System.out.println("Digite seu email: ");
@@ -41,5 +41,84 @@ public class Client extends User {
         }
 
         return user;
+    }
+
+    public void profile() {
+        Scanner scanner = new Scanner(System.in);
+        int response;
+
+        do {
+            System.out.println("-------------------------------");
+            System.out.println("Nome: " + name);
+            System.out.println("Email: " + email);
+            System.out.println("Estoque: " + stock);
+            System.out.println("----");
+            System.out.println("Você deseja fazer o que? ");
+            System.out.println("1- Editar dados");
+            System.out.println("2- Editar senha");
+            System.out.println("3- Excluir perfil");
+            System.out.println("4- Voltar ");
+            System.out.println("-------------------------------");
+
+            response = scanner.nextInt();
+
+            if(response == 1) {
+                edit();
+            }
+        } while(response != 4);
+    }
+
+    public Client edit() {
+        Scanner scanner = new Scanner(System.in);
+        String newName, newEmail, pass;
+
+        int count = 0;
+        System.out.println("Digite seu novo nome: ");
+        newName = scanner.nextLine();
+        System.out.println("Digite seu novo email: ");
+        newEmail = scanner.nextLine();
+
+        do {
+            System.out.println("Para confirmar as alterações digite sua senha: ");
+            pass = scanner.nextLine();
+
+            String password = getPassword();
+            if(!pass.equals(password)) {
+                count++;
+            } else {
+                break;
+            }
+        } while(count != 3);
+
+        if(count < 3) {
+            name = newName;
+            email = newEmail;
+            System.out.println("Dados alterados com sucesso!");
+        } else {
+            System.out.println("Senha incorreta, portanto os dados não foram alterados!");
+        }
+
+        return this;
+    }
+
+    public Client editPassword() {
+        Scanner scanner = new Scanner(System.in);
+        String newPass, pass = getPassword(), password;
+
+        int count = 0;
+
+        System.out.println("Digite sua senha atual: ");
+        password = scanner.nextLine();
+
+        if(password.equals(pass)) {
+            System.out.println("Digite sua nova senha: ");
+            newPass = scanner.nextLine();
+            setPassword(newPass);
+            System.out.println("Senha alterada com sucesso!");
+        } else {
+            System.out.println("Senha inválida!");
+        }
+
+        return this;
     }
 }
