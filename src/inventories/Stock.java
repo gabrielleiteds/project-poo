@@ -21,7 +21,7 @@ public class Stock {
 
     database.add(this); 
   }
-  public Stock () {}
+  public Stock() {}
   
   public static void addProducts(Client owner) {
     Scanner input = new Scanner(System.in);
@@ -93,6 +93,37 @@ public class Stock {
           break;
         }
       }
+  }
 
+  public static void getStocks() {
+    System.out.println("--------------------------------------");
+    for(Stock stock : database) {
+      System.out.println();
+      System.out.println("--- " + stock);
+      System.out.println("ID: " + stock.id);
+      System.out.println("--- Propietário ---");
+      System.out.println("Nome: " + stock.owner.name);
+      System.out.println("Email: " + stock.owner.email);
+    }
+  }
+
+  public static void removeStock() {
+    Scanner scanner = new Scanner(System.in);
+
+    getStocks();
+
+    System.out.println("Qual estoque deseja excluir? (Digite o email do proprietário)");
+
+    String res = scanner.nextLine();
+
+    for(Stock inventory : database) {
+      if(inventory.owner.email.equals(res)) {
+        database.remove(inventory);
+        System.out.println("Estoque removido, não sei o que pode acontecer!");
+        break;
+      } else {
+        System.out.println("Estoque não encontrado");
+      }
+    }
   }
 }
