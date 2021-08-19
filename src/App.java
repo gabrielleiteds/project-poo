@@ -131,7 +131,7 @@ public class App {
     do {
       System.out.println("---------------------------------------------------------------");
       System.out.println("1- Listar");
-      System.out.println("2- Cadastrar");
+      System.out.println("2- Cadastrar Inspetor");
       System.out.println("3- Remover");
       System.out.println("4- Logout");
       System.out.println("---------------------------------------------------------------");
@@ -154,6 +154,10 @@ public class App {
         if(response == 2) {
           Stock.getStocks();
         }
+      }
+      if(res == 2) {
+        user.createInspector();
+        System.out.println(Inspector.database.get(0).email);
       }
       if(res == 3) {
         user.remove();

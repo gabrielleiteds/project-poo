@@ -7,7 +7,7 @@ import inventories.Stock;
 
 public class Admin extends User {
     public static ArrayList<Admin> database = new ArrayList<>();
-
+    
     public static Admin init() {
         Admin adm = new Admin();
         adm.name = "Admin 00";
@@ -98,5 +98,23 @@ public class Admin extends User {
                 System.out.println("Este usuário não existe!");
             }
         }
+    }
+
+    public Inspector createInspector() {
+        Inspector user = new Inspector();
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("Digite o nome do inspetor: ");
+        String name = scan.nextLine();
+        System.out.println("Digite o email do inspetor: ");
+        String email = scan.nextLine();
+        System.out.println("Digite o nome da instituição do inspetor: ");
+        String instituition = scan.nextLine();
+        System.out.println("Digite uma senha prévia para o inspetor: ");
+        String password = scan.nextLine();
+
+        user = user.register(name, email, instituition, password);
+
+        return user;
     }
 }
