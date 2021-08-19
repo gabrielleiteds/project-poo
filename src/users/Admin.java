@@ -115,6 +115,41 @@ public class Admin extends User {
 
         user = user.register(name, email, instituition, password);
 
+        System.out.println("Inspetor cadastrado com sucesso!");
+
         return user;
+    }
+
+    public Admin createAdmin() {
+        Scanner scan = new Scanner(System.in);
+
+        Admin admin = new Admin();
+
+        System.out.println("--------------------------------");
+        System.out.println("Digite sua senha: ");
+
+        String pass = scan.nextLine();
+        String password = getPassword();
+
+        if(pass.equals(password)) {
+            Admin adm = new Admin();
+
+            System.out.println("Digite o nome do novo admin: ");
+            adm.name = scan.nextLine();
+            System.out.println("Digite o email do novo admin: ");
+            adm.email = scan.nextLine();
+            System.out.println("Digite a senha para o novo admin: ");
+
+            String passw = scan.nextLine();
+            adm.setPassword(passw);
+
+            database.add(adm);
+
+            System.out.println("Novo admin criado com sucesso!");
+
+            admin = adm;
+        }
+
+        return admin;
     }
 }
