@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import foods.Food;
 import inventories.Stock;
 import users.*;
 
@@ -8,6 +9,32 @@ public class App {
   public static ArrayList<User> users = new ArrayList<>();
 
   public static void main(String[] args) {
+    Client lucas = new Client();
+    lucas.name = "Lucas";
+    lucas.email = "lucasprimon@gmail.com";
+    lucas.setPassword("lucas");
+    lucas.stock = new Stock(lucas);
+
+    Client.database.add(lucas);
+
+    Food arroz = new Food();
+    arroz.name = "Arroz";
+    arroz.description = "Saco de arroz branco integral de 1kg";
+    arroz.price = "21,79";
+    arroz.quantity = 21;
+
+    Food feijao = new Food();
+    feijao.name = "feijão";
+    feijao.description = "Saco de feijao de 1kg";
+    feijao.price = "18,55";
+    feijao.quantity = 14;
+
+    lucas.stock.food.add(arroz);
+    lucas.stock.food.add(feijao);
+
+    Inspector init = new Inspector();
+    init.register("Gabriel", "gabriell@gmail.com", "Anvisa", "leiteg");
+
     Scanner scan = new Scanner(System.in);
 
     int response;
@@ -84,6 +111,10 @@ public class App {
           Admin logged = (Admin) user;
           menu(logged);
         }
+        if(user instanceof Inspector) {
+          Inspector logged = (Inspector) user;
+          menu(logged);
+        }
       }
     }
   }
@@ -131,7 +162,7 @@ public class App {
     do {
       System.out.println("---------------------------------------------------------------");
       System.out.println("1- Listar");
-      System.out.println("2- Cadastrar Inspetor");
+      System.out.println("2- Cadastrar");
       System.out.println("3- Remover");
       System.out.println("4- Logout");
       System.out.println("---------------------------------------------------------------");
@@ -156,12 +187,52 @@ public class App {
         }
       }
       if(res == 2) {
-        user.createInspector();
-        System.out.println(Inspector.database.get(0).email);
+        Scanner a = new Scanner(System.in);
+
+        int response;
+
+        System.out.println("---------------------------------------------------------------");
+        System.out.println("1- Cadastrar inspetor");
+        System.out.println("2- Cadastrar admin");
+        System.out.println("---------------------------------------------------------------");
+
+        response = a.nextInt();
+
+        if(response == 1) {
+          user.createInspector();
+        }
+        if(response == 2) {
+          user.createAdmin();
+        }
       }
       if(res == 3) {
         user.remove();
       }
     } while(res != 4);
+  }
+
+  public static void menu(Inspector user) {
+    Scanner scan = new Scanner(System.in);
+
+    int res;
+
+    System.out.println(" --- Bem vindo " + user.name + "! ---");
+
+    do {
+      System.out.println("---------------------------------------------------------------");
+      System.out.println("1- Listar clientes");
+      System.out.println("2- Ver estoque");
+      System.out.println("3- Logout");
+      System.out.println("---------------------------------------------------------------");
+      res = scan.nextInt();
+
+      if(res == 1) {
+        user.getClients();
+      }
+      if(res == 2) {
+        user.viewStock();
+      }
+
+    } while(res != 3);
   }
 }
