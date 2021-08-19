@@ -20,7 +20,7 @@ public class App {
       System.out.println("1- Cadastrar");
       System.out.println("2- Logar");
       System.out.println("3- Sair");
-      System.out.println("-- O que desja fazer? ");
+      System.out.println("-- O que deseja fazer? ");
 
       response = scan.nextInt();
       scan.nextLine();
@@ -50,10 +50,24 @@ public class App {
   public static void getUsers() {
     User adm = (User) Admin.init();
     users.add(adm);
+
+    ArrayList<Admin> admins = Admin.database;
+    for(Admin admin : admins) {
+      User user = (User) admin;
+      if(user != adm) {
+        users.add(user);
+      }
+    }
     
     ArrayList<Client> clients = Client.database;
     for(Client client : clients) {
       User user = (User) client;
+      users.add(user);
+    }
+
+    ArrayList<Inspector> inspectors = Inspector.database;
+    for(Inspector inspector : inspectors) {
+      User user = (User) inspector;
       users.add(user);
     }
   }
@@ -116,15 +130,33 @@ public class App {
 
     do {
       System.out.println("---------------------------------------------------------------");
-      System.out.println("1- Listar usuário");
-      System.out.println("2- Cadastrar inspetor");
-      System.out.println("3- Listar estoques");
+      System.out.println("1- Listar");
+      System.out.println("2- Cadastrar");
+      System.out.println("3- Remover");
       System.out.println("4- Logout");
       System.out.println("---------------------------------------------------------------");
       res = scan.nextInt();
 
       if(res == 1) {
-        user.getUsers(user);
+        Scanner a = new Scanner(System.in);
+
+        int response;
+
+        System.out.println("---------------------------------------------------------------");
+        System.out.println("1- Listar usuários");
+        System.out.println("2- Listar estoques");
+        System.out.println("---------------------------------------------------------------");
+        response = a.nextInt();
+
+        if(response == 1) {
+          user.getUsers();
+        }
+        if(response == 2) {
+          Stock.getStocks();
+        }
+      }
+      if(res == 3) {
+        user.remove();
       }
     } while(res != 4);
   }
