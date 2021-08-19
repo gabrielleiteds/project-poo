@@ -65,6 +65,29 @@ public class Client extends User {
             if(response == 1) {
                 edit();
             }
+            if(response == 2) {
+                String pass, password = getPassword();
+
+                System.out.println("Digite sua senha atual: ");
+                pass = scanner.nextLine();
+
+                if(pass.equals(password)) {
+                    System.out.println("Digite sua nova senha: ");
+                    pass = scanner.nextLine();
+                    setPassword(pass);
+                    System.out.println("Senha alterada com sucesso!");
+                } else {
+                    System.out.println("Senha inválida!");
+                }
+            }
+            if(response == 3) {
+                System.out.println("Tem certeza? ");
+                System.out.println("1- Sim 2- Não");
+                int nr = scanner.nextInt();
+                if(nr == 1) {
+                    database.remove(this);
+                }
+            }
         } while(response != 4);
     }
 
@@ -96,27 +119,6 @@ public class Client extends User {
             System.out.println("Dados alterados com sucesso!");
         } else {
             System.out.println("Senha incorreta, portanto os dados não foram alterados!");
-        }
-
-        return this;
-    }
-
-    public Client editPassword() {
-        Scanner scanner = new Scanner(System.in);
-        String newPass, pass = getPassword(), password;
-
-        int count = 0;
-
-        System.out.println("Digite sua senha atual: ");
-        password = scanner.nextLine();
-
-        if(password.equals(pass)) {
-            System.out.println("Digite sua nova senha: ");
-            newPass = scanner.nextLine();
-            setPassword(newPass);
-            System.out.println("Senha alterada com sucesso!");
-        } else {
-            System.out.println("Senha inválida!");
         }
 
         return this;
