@@ -118,7 +118,9 @@ public class Stock {
 
     for(Stock inventory : database) {
       if(inventory.owner.email.equals(res)) {
+        Client owner = inventory.owner;
         database.remove(inventory);
+        owner.stock = new Stock(owner);
         System.out.println("Estoque removido, não sei o que pode acontecer!");
         break;
       } else {
