@@ -55,7 +55,10 @@ public class Stock {
     Stock stockfind = new Stock();
     
     for(Stock stock : database) {
-      if(stock.id == userId) stockfind = stock;
+      if(stock.id == userId) {
+        stock.food.sort((d1,d2) -> d1.validaty.compareTo(d2.validaty));
+        stockfind = stock;
+      }
     }
 
     for (int i = 0; i < stockfind.food.size(); i++) {

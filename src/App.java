@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 import foods.Food;
@@ -22,12 +23,16 @@ public class App {
     arroz.description = "Saco de arroz branco integral de 1kg";
     arroz.price = "21,79";
     arroz.quantity = 21;
+    arroz.validaty = new Date();
 
     Food feijao = new Food();
     feijao.name = "feijão";
     feijao.description = "Saco de feijao de 1kg";
     feijao.price = "18,55";
     feijao.quantity = 14;
+    feijao.validaty = new Date();
+    feijao.validaty.setDate(22);
+
 
     lucas.stock.food.add(arroz);
     lucas.stock.food.add(feijao);
